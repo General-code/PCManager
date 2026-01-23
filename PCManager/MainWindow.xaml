@@ -1,0 +1,85 @@
+﻿<Window x:Class="PCManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:attach="clr-namespace:PCManager.AttachedProperty"
+        xmlns:local="clr-namespace:PCManager"
+        xmlns:designInstance="clr-namespace:PCManager.ViewModels"
+        mc:Ignorable="d"
+        ResizeMode="CanResize"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/CustomThumb.xaml"/>
+    </Window.Resources>
+
+    <Grid>
+        <Border x:Name="dragBorder"
+            BorderBrush="DarkGray"
+            BorderThickness="1"
+            Margin="5"
+            CornerRadius="3">
+            <Grid>
+                <Canvas x:Name="DragCanvas"
+                    AllowDrop="True"
+                    Height="{Binding ElementName=dragBorder, Path=ActualHeight}"
+                    Width="{Binding ElementName=dragBorder, Path=ActualWidth}"
+                    SizeChanged="MainCanvas_SizeChanged">
+                    <Canvas.Background>
+                        <DrawingBrush TileMode="Tile"
+                                  Viewport="0,0,40,40" ViewportUnits="Absolute"
+                                  Viewbox="0,0,40,40" ViewboxUnits="Absolute">
+                            <DrawingBrush.Drawing>
+                                <DrawingGroup>
+                                    <GeometryDrawing Geometry="M0,0 L40,0 40,40 0,40Z">
+                                        <GeometryDrawing.Brush>
+                                            <SolidColorBrush Color="white"/>
+                                        </GeometryDrawing.Brush>
+                                    </GeometryDrawing>
+
+                                    <GeometryDrawing>
+                                        <GeometryDrawing.Geometry>
+                                            <GeometryGroup>
+                                                <LineGeometry StartPoint="0,0" EndPoint="40,0"/>
+                                                <LineGeometry StartPoint="0,0" EndPoint="0,40" />
+                                            </GeometryGroup>
+                                        </GeometryDrawing.Geometry>
+                                        <GeometryDrawing.Pen>
+                                            <Pen Brush="LightGray" Thickness="0.5"/>
+                                        </GeometryDrawing.Pen>
+                                    </GeometryDrawing>
+                                </DrawingGroup>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </Canvas.Background>
+
+                    <Thumb Width="80" Height="80" Template="{StaticResource PCItem}" attach:DraggableHelper.EnableDrag="True" Canvas.Left="220" Canvas.Top="80"/>
+                    <Thumb Width="80" Height="80" Template="{StaticResource PCItem}" attach:DraggableHelper.EnableDrag="True" Canvas.Left="220" Canvas.Top="180"/>
+
+                    <Thumb Canvas.Left="40" Canvas.Top="40" DragDelta="HandleDrag">
+                        <Thumb.Template>
+                            <ControlTemplate TargetType="Thumb">
+                                <!--<Border x:Name="OuterBorder"
+                                    Width="80" Height="80"/>-->
+
+                                <Rectangle Width="80" Height="80"
+                                       Fill="DodgerBlue"
+                                       Opacity="0.8"
+                                       Stroke="Black"
+                                       StrokeThickness="1.5"
+                                       RadiusX="10"
+                                       RadiusY="10"
+                                       />
+                            </ControlTemplate>
+                        </Thumb.Template>
+                    </Thumb>
+
+                </Canvas>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom">
+                    <Button Command="{Binding AddMachineCommand}" Content="Add PC" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>
+                    <Button Command="{Binding SaveAllCommand}" Content="Save" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
