@@ -53,14 +53,14 @@
                         </DrawingBrush>
                     </Canvas.Background>
 
-                    <Thumb Width="80" Height="80" Template="{StaticResource PCItem}" attach:DraggableHelper.EnableDrag="True" Canvas.Left="220" Canvas.Top="80"/>
+                    <!--<Thumb Width="80" Height="80" Template="{StaticResource PCItem}" attach:DraggableHelper.EnableDrag="True" Canvas.Left="220" Canvas.Top="80"/>-->
                     <Thumb Width="80" Height="80" Template="{StaticResource PCItem}" attach:DraggableHelper.EnableDrag="True" Canvas.Left="220" Canvas.Top="180"/>
 
-                    <Thumb Canvas.Left="40" Canvas.Top="40" DragDelta="HandleDrag">
+                    <!--<Thumb Canvas.Left="40" Canvas.Top="40" DragDelta="HandleDrag">
                         <Thumb.Template>
                             <ControlTemplate TargetType="Thumb">
-                                <!--<Border x:Name="OuterBorder"
-                                    Width="80" Height="80"/>-->
+                                --><!--<Border x:Name="OuterBorder"
+                                    Width="80" Height="80"/>--><!--
 
                                 <Rectangle Width="80" Height="80"
                                        Fill="DodgerBlue"
@@ -72,7 +72,7 @@
                                        />
                             </ControlTemplate>
                         </Thumb.Template>
-                    </Thumb>
+                    </Thumb>-->
 
                 </Canvas>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom">

@@ -20,7 +20,7 @@ namespace PCManager.Repositories
                     list.Add(new Machine
                     {
                         Id = Convert.ToInt64(reader["Id"]),
-                        Name = reader["Name"].ToString(),
+                        Name = reader["Name"]?.ToString() ?? " ",
                         PosX = Convert.ToInt32(reader["PosX"]),
                         PosY = Convert.ToInt32(reader["PosY"]),
                         StartTime = Convert.ToDateTime(reader["StartTime"])
