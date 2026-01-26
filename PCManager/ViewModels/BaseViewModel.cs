@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace PCManager.ViewModels
 {
-    class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -14,6 +14,7 @@ namespace PCManager.ViewModels
                 return false;
 
             property = newValue;
+            OnPropertyChanged(propertyName);
             return true;
         }
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)

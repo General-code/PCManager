@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace PCManager.ViewModels
 {
-    class MainWindowViewModel : BaseViewModel
+    public class MainWindowViewModel : BaseViewModel
     {
         private readonly MachineRepository _machineRepository;
         private const double GRID_SIZE = 40.0;
@@ -71,13 +71,10 @@ namespace PCManager.ViewModels
 
         private (int x, int y) FindEmptyPosition()
         {
-            // 간단한 배치 알고리즘: 그리드 순서대로 빈 공간 찾기
-            int maxX = 800; // Canvas 너비 (실제로는 동적으로 가져와야 함)
-            int maxY = 450; // Canvas 높이
-
-            for (int y = 0; y < maxY; y += (int)GRID_SIZE)
+            // 단순한 배치 알고리즘: 그리드 순서대로 빈 공간 찾기 .. 어차피 몇 개 안되서 이렇게 구현해도 상관 x 1만개 넘어가면 문제 될 수 있음
+            for (int y = 0; y < CanvasHeight; y += (int)GRID_SIZE)
             {
-                for (int x = 0; x < maxX; x += (int)GRID_SIZE)
+                for (int x = 0; x < CanvasWidth; x += (int)GRID_SIZE)
                 {
                     if (!IsPositionOccupied(x, y))
                     {

@@ -2,7 +2,7 @@
 
 namespace PCManager.ViewModels
 {
-    class MachineViewModel : BaseViewModel
+    public class MachineViewModel : BaseViewModel
     {
         public string Name => Model.Name;
         private int _posX;

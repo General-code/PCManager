@@ -9,10 +9,6 @@
         mc:Ignorable="d"
         ResizeMode="CanResize"
         Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
-        <ResourceDictionary Source="/Resources/CustomThumb.xaml"/>
-    </Window.Resources>
-
     <Grid>
         <Border x:Name="dragBorder"
             BorderBrush="DarkGray"
@@ -20,7 +16,10 @@
             Margin="5"
             CornerRadius="3">
             <Grid>
-                <Canvas x:Name="DragCanvas"
+                <local:MachineMapControl x:Name="MachineMap" DataContext="{Binding}"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"/>
+                <!--<Canvas x:Name="DragCanvas"
                     AllowDrop="True"
                     Height="{Binding ElementName=dragBorder, Path=ActualHeight}"
                     Width="{Binding ElementName=dragBorder, Path=ActualWidth}"
@@ -54,7 +53,7 @@
                     </Canvas.Background>
                     <Thumb Width="80" Height="80" Template="{StaticResource PCItem}" attach:DraggableHelper.EnableDrag="True" Canvas.Left="220" Canvas.Top="180"/>
 
-                </Canvas>
+                </Canvas>-->
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <Button Command="{Binding AddMachineCommand}" Content="Add PC" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>
                     <Button Command="{Binding SaveAllCommand}" Content="Save" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>

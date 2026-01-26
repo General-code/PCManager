@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
+using System.Windows.Shell;
 
 namespace PCManager.AttachedProperty
 {    /// <summary>
@@ -122,8 +124,19 @@ namespace PCManager.AttachedProperty
             var canvas = GetParentCanvas(thumb);
             if (canvas == null) return;
 
-            double currentLeft = Canvas.GetLeft(thumb);
-            double currentTop = Canvas.GetTop(thumb);
+            // parent Cavas찾았는데 이미 ..
+            FrameworkElement elementToMove = thumb;
+            DependencyObject parent = VisualTreeHelper.GetParent(thumb);
+            while (parent != null && parent != canvas)
+            {
+                if (parent is FrameworkElement fe)
+                    elementToMove = fe;
+
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            double currentLeft = Canvas.GetLeft(elementToMove);
+            double currentTop = Canvas.GetTop(elementToMove);
 
             // NaN 처리 DB 상 그럴일은 없는데 .. 불안
             if (double.IsNaN(currentLeft)) currentLeft = 0;
@@ -148,8 +161,10 @@ namespace PCManager.AttachedProperty
             {
                 if (viewModel.CanPlaceAt((int)newLeft, (int)newTop, machineVM))
                 {
-                    Canvas.SetLeft(thumb, newLeft);
-                    Canvas.SetTop(thumb, newTop);
+                    Canvas.SetLeft(elementToMove, newLeft);
+                    Canvas.SetTop(elementToMove, newTop);
+                    //Canvas.SetLeft(thumb, newLeft);
+                    //Canvas.SetTop(thumb, newTop);
                 }
             }
             else
