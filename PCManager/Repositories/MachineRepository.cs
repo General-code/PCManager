@@ -5,7 +5,54 @@ namespace PCManager.Repositories
 {
     public class MachineRepository
     {
-        // 초기 로드 : DB의 모든 기기 정보를 가져온다.
+        public Machine? GetByName(string name)
+        {
+            return DBManager.SafeExecute(conn =>
+            {
+                string sql = "SELECT * FROM machine Where Name = @name";
+                using var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@name", name);
+                using var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return new Machine
+                    {
+                        Id = Convert.ToInt64(reader["Id"]),
+                        Name = reader["Name"]?.ToString() ?? " ",
+                        PosX = Convert.ToInt32(reader["PosX"]),
+                        PosY = Convert.ToInt32(reader["PosY"]),
+                        StartTime = Convert.ToDateTime(reader["StartTime"])
+                    };
+                }
+                return null;
+            });
+        }
+
+        public Machine? GetById(long id)
+        {
+            return DBManager.SafeExecute(conn =>
+            {
+                string sql = "SELECT * FROM machine Where Id = @id";
+                using var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", id);
+                using var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return new Machine
+                    {
+                        Id = Convert.ToInt64(reader["Id"]),
+                        Name = reader["Name"]?.ToString() ?? " ",
+                        PosX = Convert.ToInt32(reader["PosX"]),
+                        PosY = Convert.ToInt32(reader["PosY"]),
+                        StartTime = Convert.ToDateTime(reader["StartTime"])
+                    };
+                }
+                return null;
+            });
+        }
+
         public List<Machine> GetAll()
         {
             return DBManager.SafeExecute(conn =>

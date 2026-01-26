@@ -11,19 +11,20 @@ namespace PCManager.ViewModels
     {
         private readonly MachineRepository _machineRepository;
         private const double GRID_SIZE = 40.0;
-        private const double ITEM_SIZE = GRID_SIZE * 2; // 80
-        private double _canvasWidth;
+        private const double ITEM_SIZE = GRID_SIZE * 2;
+
+        private double _canvasWidth = 0;
+        private double _canvasHeight = 0;
+
         public double CanvasWidth
         {
             get => _canvasWidth;
-            set { _canvasWidth = value; OnPropertyChanged(); }
+            set => SetProperty(ref _canvasWidth, value);
         }
-
-        private double _canvasHeight;
         public double CanvasHeight
         {
             get => _canvasHeight;
-            set { _canvasHeight = value; OnPropertyChanged(); }
+            set => SetProperty(ref _canvasHeight, value);
         }
 
         public ObservableCollection<MachineViewModel> Machines { get; }
@@ -36,10 +37,9 @@ namespace PCManager.ViewModels
             _machineRepository = new MachineRepository();
             Machines = new ObservableCollection<MachineViewModel>();
 
-            AddMachineCommand = new RelayCommand(AddMachine);
-            SaveAllCommand = new RelayCommand(SaveAll);
-
             LoadMachines();
+            SaveAllCommand = new RelayCommand(SaveAll);
+            AddMachineCommand = new RelayCommand(AddMachine);
         }
 
         private void LoadMachines()
@@ -67,11 +67,11 @@ namespace PCManager.ViewModels
 
             // 즉시 DB에 저장
             _machineRepository.Save(newMachine);
+            viewModel.Model.Id = _machineRepository.GetByName(newMachine.Name).Id;
         }
 
         private (int x, int y) FindEmptyPosition()
         {
-            // 단순한 배치 알고리즘: 그리드 순서대로 빈 공간 찾기 .. 어차피 몇 개 안되서 이렇게 구현해도 상관 x 1만개 넘어가면 문제 될 수 있음
             for (int y = 0; y < CanvasHeight; y += (int)GRID_SIZE)
             {
                 for (int x = 0; x < CanvasWidth; x += (int)GRID_SIZE)
@@ -136,5 +136,4 @@ namespace PCManager.ViewModels
             }
         }
     }
-
 }

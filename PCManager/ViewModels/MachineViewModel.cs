@@ -20,8 +20,8 @@ namespace PCManager.ViewModels
         public MachineViewModel(Machine model)
         {
             Model = model;
-            _posX = model.PosX;
-            _posY = model.PosY;
+            PosX = model.PosX;
+            PosY = model.PosY;
         }
 
         public Machine Model { get; }
