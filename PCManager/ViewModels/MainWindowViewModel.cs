@@ -90,7 +90,6 @@ namespace PCManager.ViewModels
         {
             foreach (var machine in Machines)
             {
-                // 80x80 아이템이므로 겹치는지 확인
                 if (IsOverlapping(x, y, machine.PosX, machine.PosY))
                 {
                     return true;

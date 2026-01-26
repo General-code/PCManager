@@ -1,14 +1,11 @@
 ﻿using PCManager.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-
 
 namespace PCManager
 {
-    /// <summary>
-    /// MachineMapControl.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class MachineMapControl : UserControl
     {
         public MachineMapControl()
@@ -50,6 +47,13 @@ namespace PCManager
                     return childOfChild;
             }
             return null;
+        }
+
+        private void Thumb_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (sender is Thumb thumb)
+            {
+            }
         }
     }
 }

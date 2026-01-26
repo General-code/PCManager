@@ -48,7 +48,8 @@
 
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Thumb Width="80" Height="80"
+                <Thumb MouseDoubleClick="Thumb_MouseDoubleClick"
+                       Width="80" Height="80"
                        Template="{StaticResource PCItem}"
                        attach:DraggableHelper.EnableDrag="True"/>
             </DataTemplate>

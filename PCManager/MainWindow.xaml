@@ -19,41 +19,7 @@
                 <local:MachineMapControl x:Name="MachineMap" DataContext="{Binding}"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Stretch"/>
-                <!--<Canvas x:Name="DragCanvas"
-                    AllowDrop="True"
-                    Height="{Binding ElementName=dragBorder, Path=ActualHeight}"
-                    Width="{Binding ElementName=dragBorder, Path=ActualWidth}"
-                    SizeChanged="MainCanvas_SizeChanged">
-                    <Canvas.Background>
-                        <DrawingBrush TileMode="Tile"
-                                  Viewport="0,0,40,40" ViewportUnits="Absolute"
-                                  Viewbox="0,0,40,40" ViewboxUnits="Absolute">
-                            <DrawingBrush.Drawing>
-                                <DrawingGroup>
-                                    <GeometryDrawing Geometry="M0,0 L40,0 40,40 0,40Z">
-                                        <GeometryDrawing.Brush>
-                                            <SolidColorBrush Color="white"/>
-                                        </GeometryDrawing.Brush>
-                                    </GeometryDrawing>
 
-                                    <GeometryDrawing>
-                                        <GeometryDrawing.Geometry>
-                                            <GeometryGroup>
-                                                <LineGeometry StartPoint="0,0" EndPoint="40,0"/>
-                                                <LineGeometry StartPoint="0,0" EndPoint="0,40" />
-                                            </GeometryGroup>
-                                        </GeometryDrawing.Geometry>
-                                        <GeometryDrawing.Pen>
-                                            <Pen Brush="LightGray" Thickness="0.5"/>
-                                        </GeometryDrawing.Pen>
-                                    </GeometryDrawing>
-                                </DrawingGroup>
-                            </DrawingBrush.Drawing>
-                        </DrawingBrush>
-                    </Canvas.Background>
-                    <Thumb Width="80" Height="80" Template="{StaticResource PCItem}" attach:DraggableHelper.EnableDrag="True" Canvas.Left="220" Canvas.Top="180"/>
-
-                </Canvas>-->
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <Button Command="{Binding AddMachineCommand}" Content="Add PC" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>
                     <Button Command="{Binding SaveAllCommand}" Content="Save" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>

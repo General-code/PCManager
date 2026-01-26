@@ -54,6 +54,14 @@
             "MySqlConnector": {
               "target": "Package",
               "version": "[2.5.0, )"
+            },
+            "ScottPlot": {
+              "target": "Package",
+              "version": "[5.1.57, )"
+            },
+            "ScottPlot.WPF": {
+              "target": "Package",
+              "version": "[5.1.57, )"
             }
           },
           "imports": [

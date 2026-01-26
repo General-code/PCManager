@@ -3,13 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using System.Windows.Shell;
 
 namespace PCManager.AttachedProperty
-{    /// <summary>
-     /// Thumb에 드래그 기능을 추가하는 AttachedProperty
-     /// </summary>
-
+{
     class DraggableHelper
     {
         private const double GRID_SIZE = 40.0;
@@ -163,8 +159,6 @@ namespace PCManager.AttachedProperty
                 {
                     Canvas.SetLeft(elementToMove, newLeft);
                     Canvas.SetTop(elementToMove, newTop);
-                    //Canvas.SetLeft(thumb, newLeft);
-                    //Canvas.SetTop(thumb, newTop);
                 }
             }
             else
