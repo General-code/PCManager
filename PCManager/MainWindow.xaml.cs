@@ -14,7 +14,7 @@ namespace PCManager
     {
         private const double GRID_SIZE = 40.0;
         private const double ITEM_SIZE = GRID_SIZE * 2;
-        private int _pcCounter = 1;
+        public int MachineCounter => ViewModel.Machines.Count;
 
         private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;
 
@@ -36,49 +36,25 @@ namespace PCManager
             // 리소스로 정의한 템플릿 찾아두기
             var pcTemplate = (ControlTemplate)this.FindResource("PCItem");
 
-            foreach (var machine in machines)
+            foreach (var machineVM in machines)
             {
                 Thumb thumb = new Thumb
                 {
                     Width = 80,
                     Height = 80,
                     Template = pcTemplate,
-                    DataContext = machine.Model,
+                    DataContext = machineVM,
                 };
 
 
                 DraggableHelper.SetEnableDrag(thumb, true);
-                Canvas.SetLeft(thumb, machine.PosX);
-                Canvas.SetRight(thumb, machine.PosY);
+                Canvas.SetLeft(thumb, machineVM.PosX);
+                Canvas.SetTop(thumb, machineVM.PosY);
 
                 DragCanvas.Children.Add(thumb);
             }
         }
 
-
-        //private void HandleDrag(object sender, DragDeltaEventArgs e)
-        //{
-        //    var thumb = sender as Thumb;
-        //    if (thumb is null) return;
-
-        //    double currentLeft = Canvas.GetLeft(thumb);
-        //    double currentTop = Canvas.GetTop(thumb);
-
-        //    currentLeft = (double.IsNaN(currentLeft)) ? 0 : currentLeft;
-        //    currentTop = (double.IsNaN(currentTop)) ? 0 : currentTop;
-
-        //    double newLeft = currentLeft + e.HorizontalChange;
-        //    double newTop = currentTop + e.VerticalChange;
-
-        //    newLeft = Math.Round(newLeft / GRID_SIZE) * GRID_SIZE;
-        //    newTop = Math.Round(newTop / GRID_SIZE) * GRID_SIZE;
-
-        //    if (newLeft >= 0 && newLeft <= DragCanvas.ActualWidth - thumb.ActualWidth)
-        //        Canvas.SetLeft(thumb, newLeft);
-
-        //    if (newTop >= 0 && newTop <= DragCanvas.ActualHeight - thumb.ActualHeight)
-        //        Canvas.SetTop(thumb, newTop);
-        //}
 
         private void MainCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\yongh\Desktop\StartCSharp\PCManager\PCManager\obj\Debug\net10.0-windows\
+C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\obj\Debug\net10.0-windows\
 PCManager
 none
 false
 TRACE;DEBUG;NET;NET10_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NET10_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\Users\yongh\Desktop\StartCSharp\PCManager\PCManager\App.xaml
+C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\App.xaml
 2-1878859290
 
 141552288821
-209-578260636
+209-1079330211
 MainWindow.xaml;Resources\CustomThumb.xaml;
 
-False
+True
 
