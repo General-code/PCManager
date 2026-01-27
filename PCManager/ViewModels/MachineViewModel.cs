@@ -4,6 +4,7 @@ namespace PCManager.ViewModels
 {
     public class MachineViewModel : BaseViewModel
     {
+        public ulong Id => Model.Id;
         public string Name => Model.Name;
         private int _posX;
         private int _posY;

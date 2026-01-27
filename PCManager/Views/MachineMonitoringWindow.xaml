@@ -7,7 +7,7 @@
         xmlns:scottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
         mc:Ignorable="d"
         Title="MachineMonitoringWindow" Height="450" Width="500">
-    <Grid>
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="3*"/>
@@ -17,11 +17,9 @@
               VirtualizingPanel.VirtualizationMode="Recycling"
               VirtualizingPanel.IsVirtualizing="True"
               AutoGenerateColumns="True"
+              AutoGeneratingColumn="WeldingGrid_AutoGeneratingColumn"
               Grid.Column="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                <DataGridTextColumn Header="Speed" Binding="{Binding Speed}" IsReadOnly="True"/>
             </DataGrid.Columns>
 
         </DataGrid>

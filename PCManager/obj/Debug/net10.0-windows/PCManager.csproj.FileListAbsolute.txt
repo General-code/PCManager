@@ -111,3 +111,8 @@ C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\bin\Debug\net10.
 C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\bin\Debug\net10.0-windows\runtimes\win-x86\native\libSkiaSharp.dll
 C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\obj\Debug\net10.0-windows\Views\MachineMonitoringWindow.g.cs
 C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\obj\Debug\net10.0-windows\Views\MachineMonitoringWindow.baml
+C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\bin\Debug\net10.0-windows\Dapper.dll
+C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\bin\Debug\net10.0-windows\Dommel.dll
+C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\obj\Debug\net10.0-windows\Resources\DataTemplateResource.baml
+C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\obj\Debug\net10.0-windows\Views\MachineMonitoringPage.g.cs
+C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\obj\Debug\net10.0-windows\Views\MachineMonitoringPage.baml

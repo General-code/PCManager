@@ -2,6 +2,35 @@
   "version": 3,
   "targets": {
     "net10.0-windows7.0": {
+      "Dapper/2.1.66": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Dapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Dapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Dommel/3.5.1": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "2.1.66"
+        },
+        "compile": {
+          "lib/net10.0/Dommel.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Dommel.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "HarfBuzzSharp/8.3.1.1": {
         "type": "package",
         "dependencies": {
@@ -568,6 +597,45 @@
     }
   },
   "libraries": {
+    "Dapper/2.1.66": {
+      "sha512": "/q77jUgDOS+bzkmk3Vy9SiWMaetTw+NOoPAV0xPBsGVAyljd5S6P+4RUW7R3ZUGGr9lDRyPKgAMj2UAOwvqZYw==",
+      "type": "package",
+      "path": "dapper/2.1.66",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Dapper.png",
+        "dapper.2.1.66.nupkg.sha512",
+        "dapper.nuspec",
+        "lib/net461/Dapper.dll",
+        "lib/net461/Dapper.xml",
+        "lib/net8.0/Dapper.dll",
+        "lib/net8.0/Dapper.xml",
+        "lib/netstandard2.0/Dapper.dll",
+        "lib/netstandard2.0/Dapper.xml",
+        "readme.md"
+      ]
+    },
+    "Dommel/3.5.1": {
+      "sha512": "xrc1jzJdUdasMwMGC0fHr6mUp5eETkLVy4jvI8wz3JU8oU5k+jA2MbhYeMpC1xGVIPc4ADXdVKvCFqECdI77Zg==",
+      "type": "package",
+      "path": "dommel/3.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "dommel.3.5.1.nupkg.sha512",
+        "dommel.nuspec",
+        "lib/net10.0/Dommel.dll",
+        "lib/net10.0/Dommel.xml",
+        "lib/net8.0/Dommel.dll",
+        "lib/net8.0/Dommel.xml",
+        "lib/net9.0/Dommel.dll",
+        "lib/net9.0/Dommel.xml",
+        "lib/netstandard2.0/Dommel.dll",
+        "lib/netstandard2.0/Dommel.xml"
+      ]
+    },
     "HarfBuzzSharp/8.3.1.1": {
       "sha512": "tLZN66oe/uiRPTZfrCU4i8ScVGwqHNh5MHrXj0yVf4l7Mz0FhTGnQ71RGySROTmdognAs0JtluHkL41pIabWuQ==",
       "type": "package",
@@ -1273,6 +1341,8 @@
   },
   "projectFileDependencyGroups": {
     "net10.0-windows7.0": [
+      "Dapper >= 2.1.66",
+      "Dommel >= 3.5.1",
       "MySqlConnector >= 2.5.0",
       "ScottPlot >= 5.1.57",
       "ScottPlot.WPF >= 5.1.57"
@@ -1329,6 +1399,14 @@
       "net10.0-windows7.0": {
         "targetAlias": "net10.0-windows",
         "dependencies": {
+          "Dapper": {
+            "target": "Package",
+            "version": "[2.1.66, )"
+          },
+          "Dommel": {
+            "target": "Package",
+            "version": "[3.5.1, )"
+          },
           "MySqlConnector": {
             "target": "Package",
             "version": "[2.5.0, )"

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET10_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NET10_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\최현민\source\repos\WPFTutorial\PCManager\PCManager\App.xaml
-4803844046
+6810848048
 
-14-351504663
-226-1761933601
-MachineMapControl.xaml;MainWindow.xaml;Resources\CustomThumb.xaml;Views\MachineMonitoringWindow.xaml;
+20-415676548
+228-330822208
+MachineMapControl.xaml;MainWindow.xaml;Resources\CustomThumb.xaml;Resources\DataTemplateResource.xaml;Views\MachineMonitoringPage.xaml;Views\MachineMonitoringWindow.xaml;
 
 False
 

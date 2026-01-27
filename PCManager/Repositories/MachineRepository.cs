@@ -1,107 +1,67 @@
-﻿using MySqlConnector;
+﻿using Dapper;
+using Dommel;
+using MySqlConnector;
 using PCManager.Models;
 
 namespace PCManager.Repositories
 {
     public class MachineRepository
     {
+        // Dommel 기반
+        public async Task<Machine?> GetByNameAsync(string name)
+        {
+            return await DBManager.SafeExecuteAsync(async conn =>
+            {
+                var results = await conn.SelectAsync<Machine>(m => m.Name == name);
+                return results.FirstOrDefault();
+            });
+        }
+
         public Machine? GetByName(string name)
-        {
-            return DBManager.SafeExecute(conn =>
-            {
-                string sql = "SELECT * FROM machine Where Name = @name";
-                using var cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@name", name);
-                using var reader = cmd.ExecuteReader();
+            => DBManager.SafeExecute(conn => conn.Select<Machine>(m => m.Name == name))?.FirstOrDefault();
 
-                if (reader.Read())
-                {
-                    return new Machine
-                    {
-                        Id = Convert.ToInt64(reader["Id"]),
-                        Name = reader["Name"]?.ToString() ?? " ",
-                        PosX = Convert.ToInt32(reader["PosX"]),
-                        PosY = Convert.ToInt32(reader["PosY"]),
-                        StartTime = Convert.ToDateTime(reader["StartTime"])
-                    };
-                }
-                return null;
-            });
-        }
+        public Machine? GetById(ulong id)
+            => DBManager.SafeExecute(conn => conn.QueryFirstOrDefault<Machine>("SELECT * FROM machine WHERE id = @id", new { id }));
 
-        public Machine? GetById(long id)
-        {
-            return DBManager.SafeExecute(conn =>
-            {
-                string sql = "SELECT * FROM machine Where Id = @id";
-                using var cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", id);
-                using var reader = cmd.ExecuteReader();
+        public async Task<Machine?> GetByIdAsync(ulong id)
+            => await DBManager.SafeExecuteAsync(async conn => await conn.GetAsync<Machine>(id));
 
-                if (reader.Read())
-                {
-                    return new Machine
-                    {
-                        Id = Convert.ToInt64(reader["Id"]),
-                        Name = reader["Name"]?.ToString() ?? " ",
-                        PosX = Convert.ToInt32(reader["PosX"]),
-                        PosY = Convert.ToInt32(reader["PosY"]),
-                        StartTime = Convert.ToDateTime(reader["StartTime"])
-                    };
-                }
-                return null;
-            });
-        }
+        public IEnumerable<Machine> GetAll()
+            => DBManager.SafeExecute(conn => conn.GetAll<Machine>().ToList()) ?? new List<Machine>();
 
-        public List<Machine> GetAll()
-        {
-            return DBManager.SafeExecute(conn =>
-            {
-                var list = new List<Machine>();
-                string sql = "SELECT * FROM machine";
-                using var cmd = new MySqlCommand(sql, conn);
-                using var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    list.Add(new Machine
-                    {
-                        Id = Convert.ToInt64(reader["Id"]),
-                        Name = reader["Name"]?.ToString() ?? " ",
-                        PosX = Convert.ToInt32(reader["PosX"]),
-                        PosY = Convert.ToInt32(reader["PosY"]),
-                        StartTime = Convert.ToDateTime(reader["StartTime"])
-                    });
-                }
-                return list;
-            }) ?? new List<Machine>();  // 에러 시 빈 리스트 반환
-        }
 
         public bool Save(Machine machine)
         {
-            return DBManager.SafeExecute(conn =>
+            bool result = DBManager.SafeExecute(conn =>
             {
                 using var trans = conn.BeginTransaction();
-                string query = "" + "INSERT INTO machine(Name, StartTime, PosX, PosY) VALUES (@name, @startTime, @x, @y);";
-
-                using var cmd = new MySqlCommand(query, conn, trans);
-
-                cmd.Parameters.AddWithValue("@x", machine.PosX);
-                cmd.Parameters.AddWithValue("@y", machine.PosY);
-                cmd.Parameters.AddWithValue("@name", machine.Name);
-                cmd.Parameters.AddWithValue("@startTime", machine.StartTime);
                 try
                 {
-                    cmd.ExecuteNonQuery();
+                    bool isSuccess = false;
+                    // Insert/Update 분기 (ID가 0 이면 새 데이터/ 아니면 기존 데이터) => AUTO_INCREMENT라 0인 ID가 불가능함
+                    if (machine.Id == 0)
+                    {
+                        var id = conn.Insert(machine, transaction: trans);
+                        machine.Id = Convert.ToUInt64(id);
+                        isSuccess = true;
+                    }
+                    else
+                    {
+                        isSuccess = conn.Update(machine, transaction: trans);
+                    }
+
                     trans.Commit();
+                    return isSuccess;
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     trans.Rollback();
+                    System.Diagnostics.Debug.WriteLine($"저장 실패: {ex.Message}");
+                    return false;
                 }
-
-                return true;
             });
+
+            return result;
         }
 
         public bool SaveAll(IEnumerable<Machine> machines)
@@ -113,22 +73,8 @@ namespace PCManager.Repositories
                 {
                     foreach (var m in machines)
                     {
-                        // ID 존재 여부에 따라 쿼리 선택
-                        string query = m.Id == 0
-                            ? "INSERT INTO machine(Name, StartTime, PosX, PosY) VALUES (@name, @startTime, @x, @y)"
-                            : "UPDATE machine SET PosX = @x, PosY = @y WHERE Id = @id";
-
-                        using var cmd = new MySqlCommand(query, conn, trans);
-
-                        cmd.Parameters.AddWithValue("@x", m.PosX);
-                        cmd.Parameters.AddWithValue("@y", m.PosY);
-                        cmd.Parameters.AddWithValue("@name", m.Name);
-                        cmd.Parameters.AddWithValue("@startTime", m.StartTime);
-
-                        if (m.Id != 0)
-                            cmd.Parameters.AddWithValue("@id", m.Id);
-
-                        cmd.ExecuteNonQuery();
+                        if (m.Id == 0) conn.Insert(m, transaction: trans);
+                        else conn.Update(m, transaction: trans);
                     }
                     trans.Commit();
                     return true;

@@ -3,6 +3,14 @@
     <ControlTemplate x:Key="PCItem" TargetType="Thumb">
         <Border CornerRadius="8" Background="DodgerBlue" BorderBrush="Black" BorderThickness="2" Opacity="0.8"
                 Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" >
+
+            <Border.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick"
+                          Command="{Binding DataContext.OpenMonitoringCommand,
+                                    RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          CommandParameter="{Binding}"/>
+            </Border.InputBindings>
+
             <Grid Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

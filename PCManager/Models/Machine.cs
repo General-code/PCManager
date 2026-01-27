@@ -3,13 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PCManager.Models
 {
+    [Table("machine")]
     public class Machine
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity), Column("id")]
+        public ulong Id { get; set; }
+        [Column("name"), Required]
         public string Name { get; set; }
+        [Column("start_time")]
         public DateTime StartTime { get; set; }
+        [Column("pos_x"), Required]
         public int PosX { get; set; }
+        [Column("pos_y"), Required]
         public int PosY { get; set; }
 
         public Machine() { }

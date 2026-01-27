@@ -31,15 +31,17 @@ namespace PCManager.ViewModels
 
         public ICommand AddMachineCommand { get; }
         public ICommand SaveAllCommand { get; }
+        public ICommand OpenMonitoringCommand { get; }
 
         public MainWindowViewModel()
         {
             _machineRepository = new MachineRepository();
             Machines = new ObservableCollection<MachineViewModel>();
 
-            LoadMachines();
             SaveAllCommand = new RelayCommand(SaveAll);
             AddMachineCommand = new RelayCommand(AddMachine);
+            OpenMonitoringCommand = new RelayCommand<MachineViewModel>(OnOpenMonitoring);
+            LoadMachines();
         }
 
         private void LoadMachines()
@@ -134,5 +136,16 @@ namespace PCManager.ViewModels
                 MessageBox.Show("저장에 실패했습니다.", "저장 실패");
             }
         }
+
+        #region MonitoringWindow 관련
+        private void OnOpenMonitoring(MachineViewModel machine)
+        {
+            if (machine == null) return;
+
+            // 창을 띄우는 UI 로직 (ulong으로 캐스팅하여 전달)
+            var monitoringWin = new Views.MachineMonitoringWindow((ulong)machine.Model.Id);
+            monitoringWin.Show();
+        }
+        #endregion
     }
 }

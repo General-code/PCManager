@@ -1,23 +1,19 @@
-﻿using System.Collections.ObjectModel;
+﻿using PCManager.ViewModels;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PCManager.Views
 {
-    public class DataItem
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Value { get; set; }
-        public string Description { get; set; }
-    }
-
     public partial class MachineMonitoringWindow : Window
     {
+        private readonly MachineMonitoringViewModel _viewModel;
+        private static readonly HashSet<string> ExcludedProperties = new()
+        {
+            "SinData", "CosData", "IsLoaded", "Model", "OtherHiddenField"
+        };
         // [최적화 1] 링버퍼: 고정된 크기의 배열을 딱 한 번만 만듭니다. (새 배열 생성 X)
         private readonly double[] dataSin = new double[1000];
         private readonly double[] dataCos = new double[1000];
-
-        public ObservableCollection<DataItem> DataItems { get; set; }
 
         private int nextIndex = 0;              // 데이터를 채워넣을 현재 위치
         private double theta = 0;               // 수식에 사용할 각도 변수
@@ -28,11 +24,17 @@ namespace PCManager.Views
         private ScottPlot.Plottables.Signal mySignalCos;
         private ScottPlot.Plottables.VerticalLine vLine;
 
-        public MachineMonitoringWindow()
+        public MachineMonitoringWindow(ulong machineId)
         {
             InitializeComponent();
 
+            _viewModel = new MachineMonitoringViewModel(machineId);
+            this.DataContext = _viewModel;
+
+            WeldingGrid.ItemsSource = _viewModel.WeldingHistory;
+
             SetUpChart();
+            CompositionTarget.Rendering += OnRendering;
         }
 
         private void SetUpChart()
@@ -49,26 +51,13 @@ namespace PCManager.Views
 
             vLine = BasicPlot.Plot.Add.VerticalLine(0);
             vLine.Color = ScottPlot.Colors.Blue;
-            vLine.LineWidth = 2;
+            vLine.LineWidth = 1;
 
             // X 축은 배열 크기 1000 Y축은 파형 범위(-1.5, 1.5)로 고정
             BasicPlot.Plot.Axes.SetLimits(0, 1000, -1.5, 1.5);
             NextPlot.Plot.Axes.SetLimits(0, 1000, -1.5, 1.5);
             BasicPlot.Plot.ShowLegend();
             NextPlot.Plot.ShowLegend();
-        }
-
-        private void GenerateLargeDummy()
-        {
-            for (int i = 0; i < dataSin.Length; i++)
-            {
-                theta += Random.Shared.NextDouble() * 0.1;
-                dataSin[i] = Math.Sin(3 * theta) / 3 + Math.Sin(theta * 2) / 4;
-                dataCos[i] = Math.Cos(theta) + Math.Sin(theta * 2) / 2.0;
-            }
-
-            //WeldingData data = new WeldingData(dataSin, dataCos);
-            //WeldingDataRepository repo = new WeldingDataRepository();
         }
 
         private void OnRendering(object sender, EventArgs e)
@@ -89,23 +78,17 @@ namespace PCManager.Views
             NextPlot.Refresh();
         }
 
-        private ObservableCollection<DataItem> GenerateLargeData(int count)
+
+        private void WeldingGrid_AutoGeneratingColumn(object sender, System.Windows.Controls.DataGridAutoGeneratingColumnEventArgs e)
         {
-            var data = new ObservableCollection<DataItem>();
-            Random random = new Random();
-
-            for (int i = 0; i < count; i++)
+            if (e.PropertyType == typeof(double[]))
             {
-                data.Add(new DataItem
-                {
-                    Id = i + 1,
-                    Name = $"Item {i + 1}",
-                    Value = random.Next(1, 1000),
-                    Description = $"This is a sample description for item {i + 1}."
-                });
+                e.Cancel = true;
+                return;
             }
-            return data;
-        }
 
+            if (ExcludedProperties.Contains(e.PropertyName))
+                e.Cancel = true;
+        }
     }
 }

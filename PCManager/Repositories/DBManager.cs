@@ -49,6 +49,21 @@ namespace PCManager.Repositories
             }
         }
 
+        public static async Task<T?> SafeExecuteAsync<T>(Func<MySqlConnection, Task<T>> func)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(CONNECTION_STRING);
+                await conn.OpenAsync();
+                return await func(conn);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[DB Error]: {ex.Message}");
+                return default(T);
+            }
+        }
+
         public static void ExecuteNonQuery(string sql)
         {
             SafeExecute(conn =>

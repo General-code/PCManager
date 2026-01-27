@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "AtF3oA/HX24=",
+  "dgSpecHash": "IbeW4jqpSao=",
   "success": true,
   "projectFilePath": "C:\\Users\\최현민\\source\\repos\\WPFTutorial\\PCManager\\PCManager\\PCManager.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\최현민\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
+    "C:\\Users\\최현민\\.nuget\\packages\\dommel\\3.5.1\\dommel.3.5.1.nupkg.sha512",
     "C:\\Users\\최현민\\.nuget\\packages\\harfbuzzsharp\\8.3.1.1\\harfbuzzsharp.8.3.1.1.nupkg.sha512",
     "C:\\Users\\최현민\\.nuget\\packages\\harfbuzzsharp.nativeassets.linux\\8.3.1.1\\harfbuzzsharp.nativeassets.linux.8.3.1.1.nupkg.sha512",
     "C:\\Users\\최현민\\.nuget\\packages\\harfbuzzsharp.nativeassets.macos\\8.3.1.1\\harfbuzzsharp.nativeassets.macos.8.3.1.1.nupkg.sha512",

@@ -8,12 +8,33 @@
     ".NETCoreApp,Version=v10.0": {
       "PCManager/1.0.0": {
         "dependencies": {
+          "Dapper": "2.1.66",
+          "Dommel": "3.5.1",
           "MySqlConnector": "2.5.0",
           "ScottPlot": "5.1.57",
           "ScottPlot.WPF": "5.1.57"
         },
         "runtime": {
           "PCManager.dll": {}
+        }
+      },
+      "Dapper/2.1.66": {
+        "runtime": {
+          "lib/net8.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.66.48463"
+          }
+        }
+      },
+      "Dommel/3.5.1": {
+        "dependencies": {
+          "Dapper": "2.1.66"
+        },
+        "runtime": {
+          "lib/net10.0/Dommel.dll": {
+            "assemblyVersion": "3.5.1.0",
+            "fileVersion": "3.5.1.0"
+          }
         }
       },
       "HarfBuzzSharp/8.3.1.1": {
@@ -464,6 +485,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Dapper/2.1.66": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/q77jUgDOS+bzkmk3Vy9SiWMaetTw+NOoPAV0xPBsGVAyljd5S6P+4RUW7R3ZUGGr9lDRyPKgAMj2UAOwvqZYw==",
+      "path": "dapper/2.1.66",
+      "hashPath": "dapper.2.1.66.nupkg.sha512"
+    },
+    "Dommel/3.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xrc1jzJdUdasMwMGC0fHr6mUp5eETkLVy4jvI8wz3JU8oU5k+jA2MbhYeMpC1xGVIPc4ADXdVKvCFqECdI77Zg==",
+      "path": "dommel/3.5.1",
+      "hashPath": "dommel.3.5.1.nupkg.sha512"
     },
     "HarfBuzzSharp/8.3.1.1": {
       "type": "package",
