@@ -1,7 +1,6 @@
 ﻿using PCManager.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace PCManager
@@ -42,18 +41,12 @@ namespace PCManager
                 if (child != null && child is T t)
                     return t;
 
-                var childOfChild = FindVisualChild<T>(child);
+
+                T childOfChild = FindVisualChild<T>(child);
                 if (childOfChild != null)
                     return childOfChild;
             }
             return null;
-        }
-
-        private void Thumb_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (sender is Thumb thumb)
-            {
-            }
         }
     }
 }

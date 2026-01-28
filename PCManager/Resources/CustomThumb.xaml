@@ -1,13 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTemplate x:Key="PCItem" TargetType="Thumb">
-        <Border CornerRadius="8" Background="DodgerBlue" BorderBrush="Black" BorderThickness="2" Opacity="0.8"
+        <Border CornerRadius="8" Background="DodgerBlue"
+                BorderBrush="Black" BorderThickness="2" Opacity="0.8"
                 Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" >
 
             <Border.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick"
                           Command="{Binding DataContext.OpenMonitoringCommand,
-                                    RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                           CommandParameter="{Binding}"/>
             </Border.InputBindings>
 

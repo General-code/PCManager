@@ -9,8 +9,6 @@ namespace PCManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const double GRID_SIZE = 40.0;
-        private const double ITEM_SIZE = GRID_SIZE * 2;
         public int MachineCounter => ViewModel.Machines.Count;
 
         private MainWindowViewModel ViewModel => (MainWindowViewModel)DataContext;

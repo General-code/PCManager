@@ -16,6 +16,13 @@ namespace PCManager.ViewModels
         private double _canvasWidth = 0;
         private double _canvasHeight = 0;
 
+        private object _currentView;
+        public object CurrentView
+        {
+            get => _currentView;
+            set => SetProperty(ref _currentView, value);
+        }
+
         public double CanvasWidth
         {
             get => _canvasWidth;
@@ -35,6 +42,7 @@ namespace PCManager.ViewModels
 
         public MainWindowViewModel()
         {
+            CurrentView = this;
             _machineRepository = new MachineRepository();
             Machines = new ObservableCollection<MachineViewModel>();
 
@@ -142,10 +150,17 @@ namespace PCManager.ViewModels
         {
             if (machine == null) return;
 
-            // 창을 띄우는 UI 로직 (ulong으로 캐스팅하여 전달)
-            var monitoringWin = new Views.MachineMonitoringWindow((ulong)machine.Model.Id);
-            monitoringWin.Show();
+            var monitoringVM = new MachineMonitoringViewModel(machine.Id);
+            monitoringVM.BackRequested += (s, e) => CurrentView = this;
+            CurrentView = monitoringVM;
+
         }
+
+        public void CloseMonitoring()
+        {
+            CurrentView = this; // 다시 나(지도 로직)로 돌아오면 끝!
+        }
+
         #endregion
     }
 }

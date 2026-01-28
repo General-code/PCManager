@@ -5,26 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:attach="clr-namespace:PCManager.AttachedProperty"
         xmlns:local="clr-namespace:PCManager"
+        xmlns:view ="clr-namespace:PCManager.Views"
         xmlns:designInstance="clr-namespace:PCManager.ViewModels"
         mc:Ignorable="d"
         ResizeMode="CanResize"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Border x:Name="dragBorder"
-            BorderBrush="DarkGray"
-            BorderThickness="1"
-            Margin="5"
-            CornerRadius="3">
-            <Grid>
-                <local:MachineMapControl x:Name="MachineMap" DataContext="{Binding}"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Stretch"/>
+    <Window.Resources>
 
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom">
-                    <Button Command="{Binding AddMachineCommand}" Content="Add PC" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>
-                    <Button Command="{Binding SaveAllCommand}" Content="Save" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>
-                </StackPanel>
-            </Grid>
-        </Border>
+        <DataTemplate DataType="{x:Type designInstance:MainWindowViewModel}">
+            <Border x:Name="dragBorder"
+                    BorderBrush="DarkGray"
+                    BorderThickness="1"
+                    Margin="5"
+                    CornerRadius="3">
+                <Grid>
+                    <local:MachineMapControl x:Name="MachineMap" DataContext="{Binding}"/>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Bottom">
+                        <Button Command="{Binding AddMachineCommand}" Content="Add PC" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>
+                        <Button Command="{Binding SaveAllCommand}" Content="Save" Margin="5" Padding="3" Background="DodgerBlue" BorderBrush="AliceBlue" Foreground="White" FontFamily="Arial" FontWeight="Medium" FontSize="16"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type designInstance:MachineMonitoringViewModel}">
+            <view:MachineMonitoringControl />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ContentControl Content="{Binding CurrentView}" />
     </Grid>
 </Window>

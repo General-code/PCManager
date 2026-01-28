@@ -12,6 +12,14 @@ namespace PCManager
     public partial class App : Application
     {
         public static string DBConnectionString = "UID=root;PWD=1234;Server=localhost;Port=3306;Database=exercise";
+        
+        public App()
+        {
+            this.DispatcherUnhandledException += (s, e) => {
+                MessageBox.Show(e.Exception.Message + "\n" + e.Exception.InnerException?.Message);
+                e.Handled = true;
+            };
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {

@@ -5,7 +5,7 @@
     <Compile Update="MachineMapControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\MachineMonitoringPage.xaml.cs">
+    <Compile Update="Views\MachineMonitoringControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\MachineMonitoringWindow.xaml.cs">

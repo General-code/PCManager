@@ -1,17 +1,21 @@
-﻿
+﻿using PCManager.Command;
 using PCManager.Repositories;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace PCManager.ViewModels
 {
     public class MachineMonitoringViewModel : BaseViewModel
     {
         private readonly WeldingDataRepository _repository;
-        private readonly ulong _machineId; // 창이 닫힐 때까지 변하지 않는 주인 ID
+        private readonly ulong _machineId; // 변하지 않는 주인 ID
+
+        public ICommand BackCommand { get; }
+        public event EventHandler? BackRequested;
+
 
         // DataGrid에 뿌려질 이력 목록
         public ObservableCollection<WeldingDataViewModel> WeldingHistory { get; } = new();
-
         private WeldingDataViewModel? _selectedItem;
         public WeldingDataViewModel? SelectedItem
         {
@@ -31,6 +35,7 @@ namespace PCManager.ViewModels
         {
             _machineId = machineId;
             _repository = new WeldingDataRepository();
+            BackCommand = new RelayCommand(OnBack);
             _ = LoadSummaryListAsync(); // 생성되자마자 목록 조회 시작
         }
 
@@ -38,7 +43,6 @@ namespace PCManager.ViewModels
         {
             // 목록은 가볍게 (BLOB 제외) 가져옴
             var summaries = await _repository.GetSummaryByMachineIdAsync(_machineId);
-
             WeldingHistory.Clear();
             foreach (var s in summaries)
             {
@@ -55,5 +59,11 @@ namespace PCManager.ViewModels
                 // 필요한 경우 여기서 한 번 더 알림을 줄 수 있습니다.
             }
         }
+
+        private void OnBack()
+        {
+            BackRequested?.Invoke(this, EventArgs.Empty);
+        }
+
     }
 }
